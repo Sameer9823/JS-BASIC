@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Background Color Changer</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        transition: background-color 0.2s ease;
+        text-align: center;
+        margin-top: 50px;
+    }
+
+    button {
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+
+<div id="container">
+    <h1>Click the button to change the background color!</h1>
+    <button id="colorButton">Change Color</button>
+    <p class="sam"></p>
+</div>
+
+<script>
+    
+    const button = document.getElementById( 'colorButton' );
+    const colors = ['#ff5733', '#33ff57', '#5733ff', '#ffff33', '#33ffff'];
+    button.addEventListener('click', function(){
+    const randomColor = colors[Math.floor(Math.random() * colors.length)]
+    document.body.style.backgroundColor = randomColor
+})
+const sam = document.getElementsByClassName("sam")
+let dd = sam.innerHtml = "sameer";
+document.body.append(dd)
+
+let sss = document.cre
+   
+    
+</script>
+
+</body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Number Guessing Game</title>
+    <style>
+        html {
+            font-family: sans-serif;
+        }
+
+        body {
+            width: 300px;
+            max-width: 750px;
+            min-width: 480px;
+            margin: 0 auto;
+            background-color: #212121;
+            color: white;
+        }
+
+        button {
+            background-color: #141414;
+            color: #fff;
+            width: 250px;
+            height: 50px;
+            border-radius: 25px;
+            font-size: 20px;
+            border: none;
+            margin-top: 30px;
+            cursor: pointer;
+        }
+
+        #subt {
+            background-color: #161616;
+            width: 200px;
+            height: 50px;
+            border-radius: 10px;
+            font-size: 20px;
+            border: none;
+            margin-top: 50px;
+            cursor: pointer;
+        }
+
+        #guessField {
+            width: 250px;
+            height: 50px;
+            font-size: 20px;
+            border: 3px solid #6c6d6d;
+            text-align: center;
+            margin-top: 25px;
+        }
+
+        #wrapper {
+            text-align: center;
+            width: 450px;
+            height: 550px;
+            background-color: #474747;
+            color: white;
+            font-size: 20px;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        h1 {
+            background-color: #161616;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        p {
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/" aria-current="page">Home</a>
+        <a target="_blank" href="https://www.youtube.com/@chaiaurcode">Youtube channel</a>
+    </nav>
+
+    <div id="wrapper">
+        <h1>Number Guessing Game</h1>
+        <p>Try and guess a random number between 1 and 100.</p>
+        <p>You have 10 attempts to guess the right number.</p>
+        <form class="form">
+            <label for="guessField" id="guess">Guess a number</label><br>
+            <input type="text" id="guessField" class="guessField">
+            <button type="submit" id="subt">Submit Guess</button>
+        </form>
+        <div class="resultParas">
+            <p>Previous Guesses: <span class="guesses"></span></p>
+            <p>Guesses Remaining: <span class="lastResult">10</span></p>
+            <p class="lowOrHi"></p>
+        </div>
+    </div>
+
+    <script>
+        const form = document.querySelector('.form');
+        const submitButton = document.querySelector('#subt');
+        const userInput = document.querySelector("#guessField");
+        const guessSpan = document.querySelector(".guesses");
+        const resultSpan = document.querySelector(".lastResult");
+        const lowOrHiMessage = document.querySelector(".lowOrHi");
+        const wrapper = document.querySelector('#wrapper');
+
+        let randomNumber = Math.floor(Math.random() * 100) + 1;
+        let prevGuesses = [];
+        let remainingGuesses = 10;
+        let gameActive = true;
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (gameActive) {
+                const guess = parseInt(userInput.value);
+                validateGuess(guess);
+            }
+        });
+
+        function validateGuess(guess) {
+            if (isNaN(guess) || guess < 1 || guess > 100) {
+                alert('Please enter a valid number between 1 and 100.');
+            } else {
+                prevGuesses.push(guess);
+                displayGuess(guess);
+                checkGuess(guess);
+            }
+        }
+
+        function checkGuess(guess) {
+            if (guess === randomNumber) {
+                displayMessage("🎉 You guessed the right number!");
+                endGame();
+            } else if (guess < randomNumber) {
+                displayMessage("📉 Too low! Try again.");
+            } else {
+                displayMessage("📈 Too high! Try again.");
+            }
+        }
+
+        function displayGuess(guess) {
+            userInput.value = '';
+            guessSpan.textContent = prevGuesses.join(', ');
+            remainingGuesses--;
+            resultSpan.textContent = remainingGuesses;
+
+            if (remainingGuesses === 0) {
+                displayMessage(`Game Over! The number was ${randomNumber}`);
+                endGame();
+            }
+        }
+
+        function displayMessage(message) {
+            lowOrHiMessage.innerHTML = `<h3>${message}</h3>`;
+        }
+
+        function endGame() {
+            userInput.disabled = true;
+            submitButton.disabled = true;
+            newGameButton();
+            gameActive = false;
+        }
+
+        function newGameButton() {
+            const newBtn = document.createElement('button');
+            newBtn.textContent = "Start New Game";
+            newBtn.id = "newGame";
+            newBtn.addEventListener('click', startNewGame);
+            wrapper.appendChild(newBtn);
+        }
+
+        function startNewGame() {
+            randomNumber = Math.floor(Math.random() * 100) + 1;
+            prevGuesses = [];
+            remainingGuesses = 10;
+            gameActive = true;
+
+            guessSpan.textContent = '';
+            resultSpan.textContent = '10';
+            lowOrHiMessage.innerHTML = '';
+            userInput.value = '';
+            userInput.disabled = false;
+            submitButton.disabled = false;
+
+            const newGameBtn = document.querySelector("#newGame");
+            if (newGameBtn) {
+                newGameBtn.remove();
+            }
+        }
+    </script>
+</body>
+</html>
