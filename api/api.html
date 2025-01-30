@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="background-color: black; color: aliceblue;">
+    <div class="profile">
+
+    </div>
+</body>
+<script>
+   const xhr = new XMLHttpRequest();
+xhr.open('GET', 'https://api.github.com/users/sameer9823', true);
+
+xhr.onload = function () {
+    if (xhr.status === 200) { // Check if request was successful
+        const data = JSON.parse(xhr.responseText);
+        console.log(`Followers: ${data.avatar_url}`);
+        const profile = document.querySelector('.profile');
+        const img = document.createElement('img');
+        const p = document.createElement('p');
+
+        img.src = data.avatar_url;
+        p.textContent = `Followers: ${data.followers}`;
+
+        profile.appendChild(img);
+        profile.appendChild(p);
+    } else {
+        console.error(`Error: ${xhr.status} - ${xhr.statusText}`);
+    }
+};
+
+xhr.onerror = function () {
+    console.error("Request failed.");
+};
+
+xhr.send();
+
+</script>
+</html>
