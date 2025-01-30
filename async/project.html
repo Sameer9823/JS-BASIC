@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body style="background-color: black; color: aliceblue">
+    <h1>sameer</h1>
+    <button id="stop">stop</button>
+    <button id="start">Start</button>
+  </body>
+
+  <script>
+
+    const randomColor = function () {
+        const hex = "0123456789ABCDEF";
+        let color = "#"
+        for(let i = 0; i< 6; i++){
+          color += hex[Math.floor(Math.random() * 16)]}
+          return color; 
+    }
+    let eh;
+    const date = function () {
+      console.log("sameer", Date.now());
+    };
+
+    const stop = document.querySelector("#stop");
+    const start = document.querySelector("#start");
+
+    start.addEventListener("click", function () {
+      if (!eh) {
+        eh = setInterval(() => {
+        document.body.style.backgroundColor = randomColor()
+      }, 1000)
+      }
+      
+    });
+
+    stop.addEventListener("click", function () {
+      clearInterval(eh);
+      eh = null
+    });
+  </script>
+</html>

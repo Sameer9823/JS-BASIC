@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body style="background-color: black; color: aliceblue">
+    <h2>Images</h2>
+    <ul id="images">
+      <li><img id="photo1" src="./profile.jpeg" alt="photo1" /></li>
+      <li><img id="photo2" src="./profile2.jpeg" alt="" /></li>
+      <li><img id="photo3" src="./profile.jpeg" alt="" /></li>
+      <li><img id="photo4" src="./profile2.jpeg" alt="" /></li>
+      <li>
+        <a id="google" style="color: aliceblue" href="https://www.youtube.com/"
+          >Google</a
+        >
+      </li>
+    </ul>
+  </body>
+  <script>
+    // const p1 = document.getElementById("images");
+    // const p2 = document.getElementById("photo3")
+    // p1.addEventListener("click", (e) => {
+    //   console.log("ul");
+
+    // }, false);
+    // p2.addEventListener("click", (e) => {
+    //   console.log("li");
+    //   e.stopPropagation()
+
+    // }, false);
+
+    //type, timestamp, defaultprevented,
+    //target, toelement, srcelement, currentTarget
+    //clientx, clienty, offset, screenx, y
+    //altkey, ctrlkey, keycode
+
+    // getElementById('google').addEventListener('click', (e) =>{
+    //     e.preventDefault()
+    //     e.stopPropagation()
+    //     console.log('clicked google');
+
+    // })
+
+    const img = document
+      .querySelector("#images")
+      .addEventListener("click", function (e) {
+        console.log(e.target.parentNode);
+        if (e.target.tagName === "IMG") {
+          console.log(e.target.id);
+          let removeIt = e.target.parentNode;
+          removeIt.remove();
+        }
+      });
+    // removeIt.parentNode.removeChild(removeIt)
+  </script>
+</html>
