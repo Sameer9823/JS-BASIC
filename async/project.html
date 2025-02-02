@@ -41,5 +41,19 @@
       clearInterval(eh);
       eh = null
     });
+
+    async function fetchData() {
+    try {
+        const res = await fetch('https://api.github.com/users/sameer9823')
+        let data = res.json()
+        console.log(data);
+        
+        
+    } catch (error) {
+        console.log(error);
+        
+        
+    }
+}
   </script>
 </html>
